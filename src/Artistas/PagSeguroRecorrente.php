@@ -107,7 +107,7 @@ class PagSeguroRecorrente extends PagSeguroClient
             'preApprovalExpirationValue'        => 'integer|between:1,1000000',
             'maxUses'                           => 'integer|between:1,1000000',
         ];
-        
+
         if ($preApprovalRequest['preApprovalCharge'] == "AUTO") {
             $rules['preApprovalAmountPerPayment'] = 'required|' . $rules['preApprovalAmountPerPayment'];
         }
