@@ -101,16 +101,12 @@ class PagSeguroRecorrente extends PagSeguroClient
             'preApprovalCharge'                 => 'required',
             'preApprovalPeriod'                 => 'required',
             'preApprovalCancelUrl'              => 'url',
-            'preApprovalAmountPerPayment'       => 'numeric|between:1.00,2000.00',
+            'preApprovalAmountPerPayment'       => 'required_unless:preApprovalCharge,MANUAL|numeric|between:1.00,2000.00',
             'preApprovalMembershipFee'          => 'numeric|between:0.00,1000000.00',
             'preApprovalTrialPeriodDuration'    => 'integer|between:1,1000000',
             'preApprovalExpirationValue'        => 'integer|between:1,1000000',
             'maxUses'                           => 'integer|between:1,1000000',
         ];
-
-        if ($preApprovalRequest['preApprovalCharge'] == "AUTO") {
-            $rules['preApprovalAmountPerPayment'] = 'required|' . $rules['preApprovalAmountPerPayment'];
-        }
 
         $this->validate($preApprovalRequest, $rules);
     }
