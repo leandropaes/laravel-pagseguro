@@ -663,7 +663,7 @@ class PagSeguroRecorrente extends PagSeguroClient
 
         $this->validatePreApprovalPayment($preApprovalPayment);
 
-        return (string) $this->sendTransaction($preApprovalPayment, $this->url['preApprovalPayment'])->code;
+        return (string) $this->sendTransaction($preApprovalPayment, $this->url['preApprovalPayment']);
     }
 
     /**
