@@ -651,14 +651,14 @@ class PagSeguroRecorrente extends PagSeguroClient
     public function sendPreApprovalPayment(array $preApprovalPayment)
     {
         $preApprovalPayment = [
-            'reference'          => $this->reference,
-            'plan'               => $this->plan,
             'email'              => $this->email,
             'token'              => $this->token,
-            'itemId1'            => $this->sanitize($preApprovalPayment, 'itemId'),
-            'itemDescription1'   => $this->sanitize($preApprovalPayment, 'itemDescription'),
-            'itemAmount1'        => $this->sanitizeMoney($preApprovalPayment, 'itemAmount'),
-            'itemQuantity1'      => $this->sanitizeNumber($preApprovalPayment, 'itemQuantity'),
+            'reference'          => $this->reference,
+            'preApprovalCode'    => $this->preApprovalCode,
+            'itemId1'            => $this->sanitize($preApprovalPayment, 'itemId1'),
+            'itemDescription1'   => $this->sanitize($preApprovalPayment, 'itemDescription1'),
+            'itemAmount1'        => $this->sanitizeMoney($preApprovalPayment, 'itemAmount1'),
+            'itemQuantity1'      => $this->sanitizeNumber($preApprovalPayment, 'itemQuantity1'),
         ];
 
         $this->validatePreApprovalPayment($preApprovalPayment);
