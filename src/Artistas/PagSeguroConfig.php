@@ -89,6 +89,7 @@ class PagSeguroConfig
         $url = [
             'preApprovalRequest'            => 'https://ws.'.$sandbox.'pagseguro.uol.com.br/v2/pre-approvals/request',
             'preApproval'                   => 'https://ws.'.$sandbox.'pagseguro.uol.com.br/pre-approvals',
+            'preApprovalPayment'            => 'https://ws.'.$sandbox.'pagseguro.uol.com.br/pre-approvals/payment',
             'preApprovalCancel'             => 'https://ws.'.$sandbox.'pagseguro.uol.com.br/v2/pre-approvals/cancel/',
             'cancelTransaction'             => 'https://ws.'.$sandbox.'pagseguro.uol.com.br/v2/transactions/cancels',
             'preApprovalNotifications'      => 'https://ws.'.$sandbox.'pagseguro.uol.com.br/v2/pre-approvals/notifications/',

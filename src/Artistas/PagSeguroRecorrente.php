@@ -639,4 +639,47 @@ class PagSeguroRecorrente extends PagSeguroClient
     {
         return $this->sendJsonTransaction([], $this->url['preApproval'].'/'.$this->preApprovalCode.'/payment-orders/'.$orderCode.'/payment');
     }
+
+
+    /**
+     * Define os dados da cobrança manual.
+     *
+     * @param array $preApprovalPayment
+     *
+     * @return \SimpleXMLElement
+     */
+    public function sendPreApprovalPayment(array $preApprovalPayment)
+    {
+        $preApprovalPayment = [
+            'reference'          => $this->reference,
+            'plan'               => $this->plan,
+            'email'              => $this->email,
+            'token'              => $this->token,
+            'itemId1'            => $this->sanitize($preApprovalPayment, 'itemId'),
+            'itemDescription1'   => $this->sanitize($preApprovalPayment, 'itemDescription'),
+            'itemAmount1'        => $this->sanitizeMoney($preApprovalPayment, 'itemAmount'),
+            'itemQuantity1'      => $this->sanitizeNumber($preApprovalPayment, 'itemQuantity'),
+        ];
+
+        $this->validatePreApprovalPayment($preApprovalPayment);
+
+        return (string) $this->sendTransaction($preApprovalPayment, $this->url['preApprovalPayment'])->code;
+    }
+
+    /**
+     * Valida os dados contidos na array de cobrança automática.
+     *
+     * @param array $preApprovalPayment
+     */
+    private function validatePreApprovalPayment(array $preApprovalPayment)
+    {
+        $rules = [
+            'itemId1'          => 'required|max:100',
+            'itemDescription1' => 'required|max:100',
+            'itemAmount1'      => 'required|numeric|between:0.00,9999999.00',
+            'itemQuantity1'    => 'required|integer|between:1,999',
+        ];
+
+        $this->validate($preApprovalPayment, $rules);
+    }
 }
