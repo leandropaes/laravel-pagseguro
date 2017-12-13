@@ -16,7 +16,7 @@ class PagSeguroClient extends PagSeguroConfig
      *
      * @return \SimpleXMLElement
      */
-    protected function sendTransaction(array $parameters, $url = null, $post = true, array $headers = null)
+    protected function sendTransaction(array $parameters, $url = null, $post = true, array $headers = null, $result_json = false)
     {
         if ($url === null) {
             $url = $this->url['transactions'];
@@ -38,8 +38,15 @@ class PagSeguroClient extends PagSeguroConfig
             $method = 'GET';
         }
 
-        $result = $this->executeCurl($parameters, $url, ['Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1'], $method);
+        if (is_null($headers)) {
+            $headers = ['Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1'];
+        }
 
+        $result = $this->executeCurl($parameters, $url, $headers, $method);
+
+        if ($result_json) {
+            return $this->formatResultJson($result);
+        }
         return $this->formatResult($result);
     }
 
